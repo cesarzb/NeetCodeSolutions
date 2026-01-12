@@ -1,4 +1,11 @@
-# Contains Duplicate - https://neetcode.io/problems/duplicate-integer/question
+"""
+Problem: Contains Duplicate (Easy)
+Link: https://leetcode.com/problems/contains-duplicate/
+    
+Description: 
+Given an integer array nums, return true if any value appears 
+more than once in the array.
+"""
 
 class Solution:
     def hasDuplicate(self, nums: List[int]) -> bool:
