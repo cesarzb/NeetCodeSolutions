@@ -12,7 +12,6 @@ class Solution:
 
         for i, num in enumerate(nums):
             complementary = target - num
-            if complementary in seen: 
-                return sorted([seen[complementary], i])
 
+            if complementary in seen: return [seen[complementary], i]
             seen[num] = i
