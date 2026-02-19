@@ -17,8 +17,7 @@ class Solution:
             indexes[val].append(key)
 
         result = []
-        indexes.reverse()
-        for arr in indexes:
+        for arr in range(len(indexes) - 1, 0, - 1):
             for num in arr:
                 if len(result) == k: break
                 result.append(num)
