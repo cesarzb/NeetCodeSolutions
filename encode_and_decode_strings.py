@@ -9,27 +9,25 @@
 class Solution:
 
     def encode(self, strs: List[str]) -> str:
-        result = []
-        
+        encoded = []
         for s in strs:
-            result.append(f"{len(s)}#{s}")
-        
-        return "".join(result)
+            encoded.append(f"{len(s)}&{s}")
+        return ''.join(encoded)
 
     def decode(self, s: str) -> List[str]:
-        i = 0
-        j = 0
-        result = []
+        decoded = []
 
-        while j < len(s):
-            while s[j] != "#":
-                j += 1
-            
-            word_len = int(s[i:j])
-            j += 1
-            result.append(s[j:j + word_len])
-            
-            j += word_len
-            i = j
+        left, right = 0, 0
 
-        return result
+        while right < len(s):
+            if s[right] == "&":
+                start = right + 1
+                end = start + int(s[left:right])
+
+                decoded.append(s[start : end])
+
+                left, right = end, end
+            else: 
+                right += 1
+        
+        return decoded
