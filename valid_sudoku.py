@@ -9,21 +9,23 @@ You are given sudoku board, check if it's valid.
 
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = [set() for _ in range(9)]
-        cols = [set() for _ in range(9)]
-        boxes = [set() for _ in range(9)]
+        seen = {"rows": [set() for _ in range(9)],
+        "cols": [set() for _ in range(9)],
+        "boxes": [set() for _ in range(9)],}
 
-        for i, row in enumerate(board):
-            print(i)
-            for j, num in enumerate(row):
+        for i in range(9):
+            for j in range(9):
+                num = board[i][j]
                 if num == ".": continue
-                if num in rows[i]: return False
-                if num in cols[j]: return False
-                box_number = (i // 3) * 3 + j // 3
-                if num in boxes[box_number]: return False
-                rows[i].add(num)
-                cols[j].add(num)
-                boxes[box_number].add(num)
-        
-        return True
+                seen_row = seen["rows"][i]
+                seen_col = seen["cols"][j]
+                seen_box = seen["boxes"][(i // 3) * 3 + j // 3]
 
+                if num in seen_row or num in seen_col or num in seen_box:
+                    return False
+
+                seen_row.add(num)
+                seen_col.add(num)
+                seen_box.add(num)
+
+        return True
