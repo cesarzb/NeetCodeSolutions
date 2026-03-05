@@ -1,8 +1,8 @@
 """
 Problem: Longest Consecutive Sequence
-Link: https://neetcode.io/problems/longest-consecutive-sequence/question
+Link: https://neetcode.io/problems/longest-consecutive-current_streak/question
 
-Given array of nums return length of the longest consecutive sequence.
+Given array of nums return length of the longest consecutive current_streak.
 """
 
 class Solution:
@@ -11,17 +11,17 @@ class Solution:
 
         seen = set(nums)
 
-        maximum = 0
+        longest_streak = 0
 
         for num in seen:
             if num - 1 in seen: continue
 
-            sequence = 0
+            current_streak = 0
             n = num
             while n in seen:
-                sequence += 1
+                current_streak += 1
                 n += 1
             
-            maximum = max(maximum, sequence)
+            longest_streak = max(longest_streak, current_streak)
         
-        return maximum
+        return longest_streak
