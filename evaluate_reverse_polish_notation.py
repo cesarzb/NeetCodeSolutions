@@ -9,22 +9,19 @@ perform calculations in reverse polish notation.
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        signs = set(["-", "+", "*", "/"])
 
-        for token in tokens:
-            if token in signs:
-                b = stack.pop()
-                a = stack.pop()
-                if token == "+":
-                    stack.append(a + b)
-                elif token == "-":
-                    stack.append(a - b)
-                elif token == "*":
-                    stack.append(a * b)
-                elif token == "/":
-                    stack.append(int(a / b))
+        operations = {
+            "-": lambda a, b: a - b,
+            "+": lambda a, b: a + b,
+            "*": lambda a, b: a * b,
+            "/": lambda a, b: int(a / b),
+        }
+
+        for i, token in enumerate(tokens):
+            if token not in operations: stack.append(int(token))
             else:
-                stack.append(int(token))
+                second = stack.pop()
+                first = stack.pop()
+                stack.append(operations[token](first, second))
 
-        return stack[-1]
-
+        return stack.pop()
