@@ -13,13 +13,16 @@ Count how many fleets will arrive to destination.
 
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        stack = []
+        fleets = 0
+        max_time = 0
 
         cars = sorted(zip(position, speed), reverse=True)
-
         for car in cars:
             p, s = car
-            time = (target - p) / s
-            if not stack or time > stack[-1]: stack.append(time)
-        
-        return len(stack)
+            distance = target - p
+            time = distance / s
+            if time > max_time:
+                fleets += 1
+                max_time = time
+
+        return fleets
