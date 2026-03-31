@@ -7,17 +7,20 @@ In histogram find the rectangle with the biggest area that you can create.
 
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
-        if len(heights) == 1: return heights[0]
-
-        stack = []
-        mutated_heights = heights + [0]
+        stack = [-1]
         max_area = 0
+        n = len(heights)
 
-        for i in range(len(mutated_heights)):
-            while stack and mutated_heights[stack[-1]] > mutated_heights[i]:
-                popped_i = stack.pop()
-                left = stack[-1] if stack else -1
-                area = mutated_heights[popped_i] * (i - left - 1)
-                max_area = max(max_area, area)
+        for i in range(n+1):
+            current_h = heights[i] if i < n else 0
+
+            while len(stack) > 1 and heights[stack[-1]] > current_h:
+                h = heights[stack.pop()]
+                w = i - stack[-1] - 1
+                area = w * h
+                if area > max_area: max_area = area
+
             stack.append(i)
+        
         return max_area
+
