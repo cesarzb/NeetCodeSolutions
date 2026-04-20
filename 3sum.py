@@ -10,6 +10,7 @@ class Solution:
         i = 0
         triplets = []
         snums = sorted(nums)
+
         for i, val in enumerate(snums):
             if val > 0: break
             if i == 0 or val != snums[i-1]:
@@ -20,11 +21,11 @@ class Solution:
                     if val + snums[j] + snums[k] < 0:
                         j += 1
                     elif val + snums[j] + snums[k] > 0:
-                        k -= 1                  
+                        k -= 1
                     else:
                         triplets.append([val, snums[j], snums[k]])
                         j += 1
                         while j < k and snums[j] == snums[j-1]:
                             j += 1
-        
+
         return triplets
