@@ -8,12 +8,10 @@ Choose best day to buy and sell stock, to maximize profit.
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if len(prices) == 1: return 0
-        start, end, max_profit = 0, 1, 0
+        lowest_price, max_profit = prices[0], 0
 
-        for i, price in enumerate(prices):
-            max_profit = max(price - prices[start], max_profit)
-            if prices[start] > price:
-                start = i
-    
+        for price in prices:
+            max_profit = max(max_profit, price - lowest_price)
+            lowest_price = min(lowest_price, price)
+
         return max_profit
