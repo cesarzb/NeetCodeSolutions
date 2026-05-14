@@ -8,19 +8,16 @@ you can replace k characters.
 
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        seen = {}
-        max_f = max_l = left = right = 0
+        count = {}
+        left, max_freq = 0, 0
 
-        while right < len(s):
-            seen[s[right]] = seen.get(s[right], 0) + 1
-            max_f = max(max_f, seen[s[right]])
+        for right in range(len(s)):
+            count[s[right]] = count.get(s[right], 0) + 1
+            max_freq = max(max_freq, count[s[right]])
 
-            if (right - left + 1) > max_f + k:
-                seen[s[left]] -= 1
+            if (right - left + 1) - max_freq > k:
+                count[s[left]] -= 1
                 left += 1
-            
-            max_l = max(right - left + 1, max_l)
 
-            right += 1
-        
-        return max_l
+        return len(s) - left
+
